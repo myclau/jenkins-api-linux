@@ -1,7 +1,7 @@
 #!/bin/bash
 . env.sh
 
-viewname='Container Technology'
+viewname='<any name>'
 
 currentpromt=$(pwd)
 downloadpath=$(echo $currentpromt/Download)
