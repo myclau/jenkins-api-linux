@@ -1,3 +1,7 @@
+Before install
+==============
+make sure your machine install xmlstarlet and curl
+
 How to use
 ==========
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 . env.sh
 
-viewname='<any name>'
+viewname='Container Technology'
 
 currentpromt=$(pwd)
 downloadpath=$(echo $currentpromt/Download)
@@ -13,5 +13,8 @@ jobNames=($(curl -X GET "${jenkinshost}/view/${viewname/ /%20}/config.xml"  --us
 
 for jobname in ${jobNames[*]}
 do
-    curl --silent --write-out "Download ${jobname/ /%20}.xml - HTTP: %{http_code}\n"  -X GET "${jenkinshost}/job/${jobname/ /%20}/config.xml" --user ${apikey} -o $downloadpath/${jobname/ /%20}.xml
+    jobfilename="${jobname/ /%20}"
+    curl --silent --write-out "Download ${jobfilename}.xml - HTTP: %{http_code}\n"  -X GET "${jenkinshost}/job/${jobfilename}/config.xml" --user ${apikey} -o $downloadpath/${jobfilename}.temp.xml
+    cat $downloadpath/${jobfilename}.temp.xml | xml fo --quiet > $downloadpath/${jobfilename}.xml
+    rm -f $downloadpath/${jobfilename}.temp.xml
 done
